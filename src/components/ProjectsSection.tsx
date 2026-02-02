@@ -558,12 +558,12 @@ const ProjectsSection = () => {
             whileTap={{ scale: 0.98 }}
           >
             <motion.span
-              className="absolute inset-0 bg-accent"
+              className="absolute inset-0 bg-foreground"
               initial={{ x: "-100%" }}
               whileHover={{ x: "0%" }}
               transition={{ duration: 0.4 }}
             />
-            <span className="relative flex items-center gap-4 group-hover:text-primary-foreground transition-colors">
+            <span className="relative flex items-center gap-4 group-hover:text-accent transition-colors">
               Виж всички проекти
               <motion.svg 
                 width="20" 

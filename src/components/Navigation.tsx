@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Link, useLocation } from "react-router-dom";
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,16 +18,19 @@ const Navigation = () => {
   }, []);
 
   const navLinks = [
-    { label: "Проекти", href: "#projects" },
-    { label: "Услуги", href: "#services" },
-    { label: "За нас", href: "#process" },
-    { label: "Контакт", href: "#contact" },
+    { label: "Начало", href: "/", isPage: true },
+    { label: "Проекти", href: isHomePage ? "#projects" : "/#projects", isPage: !isHomePage },
+    { label: "Услуги", href: "/services", isPage: true },
+    { label: "За нас", href: "/about", isPage: true },
+    { label: "Контакт", href: "/contact", isPage: true },
   ];
 
   const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+    if (href.startsWith("#")) {
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
     }
     setIsMobileMenuOpen(false);
   };
@@ -43,27 +49,32 @@ const Navigation = () => {
       >
         <nav className="container-wide flex items-center justify-between h-20">
           {/* Logo */}
-          <a
-            href="#"
-            className="text-display text-xl font-semibold tracking-tight"
-            onClick={(e) => {
-              e.preventDefault();
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
+          <Link
+            to="/"
+            className="text-display text-xl font-semibold tracking-tight hover:text-accent transition-colors"
           >
             GRAPHYRA
-          </a>
+          </Link>
 
           {/* Desktop Navigation */}
           <ul className="hidden md:flex items-center gap-10">
             {navLinks.map((link) => (
               <li key={link.href}>
-                <button
-                  onClick={() => scrollToSection(link.href)}
-                  className="text-sm font-body link-underline text-foreground/80 hover:text-foreground transition-colors"
-                >
-                  {link.label}
-                </button>
+                {link.isPage ? (
+                  <Link
+                    to={link.href}
+                    className="text-sm font-body link-underline text-foreground/80 hover:text-foreground transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                ) : (
+                  <button
+                    onClick={() => scrollToSection(link.href)}
+                    className="text-sm font-body link-underline text-foreground/80 hover:text-foreground transition-colors"
+                  >
+                    {link.label}
+                  </button>
+                )}
               </li>
             ))}
           </ul>
@@ -104,16 +115,29 @@ const Navigation = () => {
           >
             <nav className="flex flex-col items-center justify-center h-full gap-8">
               {navLinks.map((link, i) => (
-                <motion.button
+                <motion.div
                   key={link.href}
-                  onClick={() => scrollToSection(link.href)}
-                  className="text-display text-3xl"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.1 }}
                 >
-                  {link.label}
-                </motion.button>
+                  {link.isPage ? (
+                    <Link
+                      to={link.href}
+                      className="text-display text-3xl"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      {link.label}
+                    </Link>
+                  ) : (
+                    <button
+                      onClick={() => scrollToSection(link.href)}
+                      className="text-display text-3xl"
+                    >
+                      {link.label}
+                    </button>
+                  )}
+                </motion.div>
               ))}
             </nav>
           </motion.div>
