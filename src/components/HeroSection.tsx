@@ -246,10 +246,10 @@ const HeroSection = () => {
             </motion.p>
           </motion.div>
 
-          {/* Main Title with stagger animation */}
+          {/* Main Title with stagger animation - scales instead of wrapping */}
           <div className="overflow-hidden mb-8">
             <motion.h1
-              className="text-display text-7xl sm:text-8xl md:text-9xl lg:text-[12rem] leading-none"
+              className="text-display text-[15vw] sm:text-[12vw] md:text-[11vw] lg:text-[10vw] xl:text-[9vw] leading-none whitespace-nowrap"
               initial={{ y: 100 }}
               animate={{ y: 0 }}
               transition={{ delay: 0.3, duration: 1, ease: [0.16, 1, 0.3, 1] }}
