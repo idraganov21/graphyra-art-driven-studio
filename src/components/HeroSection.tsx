@@ -242,7 +242,7 @@ const HeroSection = () => {
               animate={{ y: 0 }}
               transition={{ delay: 0.2, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             >
-              Дизайн Студио
+              Дигитална Маркетинг Агенция - Варна
             </motion.p>
           </motion.div>
 
