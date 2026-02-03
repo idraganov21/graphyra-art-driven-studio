@@ -208,14 +208,14 @@ const Navigation = () => {
                   >
                     <div className="flex items-center gap-4">
                       {/* Index number */}
-                      <span className="text-sm font-medium text-accent w-8">
+                      <span className="text-sm font-medium text-accent w-8 block">
                         0{i + 1}
                       </span>
                       
                       {link.isPage ? (
                         <Link
                           to={link.href}
-                          className={`font-display text-4xl sm:text-5xl py-3 transition-colors duration-300 ${
+                          className={`text-display text-3xl sm:text-4xl py-3 block transition-colors duration-300 ${
                             location.pathname === link.href 
                               ? 'text-accent' 
                               : 'text-foreground hover:text-accent'
@@ -227,7 +227,7 @@ const Navigation = () => {
                       ) : (
                         <button
                           onClick={() => scrollToSection(link.href)}
-                          className="font-display text-4xl sm:text-5xl py-3 text-foreground hover:text-accent transition-colors duration-300"
+                          className="text-display text-3xl sm:text-4xl py-3 block text-foreground hover:text-accent transition-colors duration-300"
                         >
                           {link.label}
                         </button>
