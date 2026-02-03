@@ -54,7 +54,7 @@ const Navigation = () => {
             <img 
               src={logoGraphyra} 
               alt="Graphyra Design Agency" 
-              className="h-14 w-auto transition-transform hover:scale-105"
+              className="h-20 w-auto mt-2 transition-transform hover:scale-105"
             />
           </Link>
 
