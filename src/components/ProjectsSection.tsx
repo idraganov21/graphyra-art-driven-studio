@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
+import { Link } from "react-router-dom";
 
 // Import project images
 import projectDolce from "@/assets/project-dolce.png";
@@ -552,32 +553,34 @@ const ProjectsSection = () => {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 1.2 }}
         >
-          <motion.button
-            className="group relative px-10 py-5 border-2 border-foreground text-foreground overflow-hidden text-lg"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <motion.span
-              className="absolute inset-0 bg-foreground"
-              initial={{ x: "-100%" }}
-              whileHover={{ x: "0%" }}
-              transition={{ duration: 0.4 }}
-            />
-            <span className="relative flex items-center gap-4 group-hover:text-accent transition-colors">
-              Виж всички проекти
-              <motion.svg 
-                width="20" 
-                height="20" 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                strokeWidth="2"
-                className="group-hover:translate-x-1 transition-transform"
-              >
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </motion.svg>
-            </span>
-          </motion.button>
+          <Link to="/projects">
+            <motion.button
+              className="group relative px-10 py-5 border-2 border-foreground text-foreground overflow-hidden text-lg"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <motion.span
+                className="absolute inset-0 bg-foreground"
+                initial={{ x: "-100%" }}
+                whileHover={{ x: "0%" }}
+                transition={{ duration: 0.4 }}
+              />
+              <span className="relative flex items-center gap-4 group-hover:text-accent transition-colors">
+                Виж всички проекти
+                <motion.svg 
+                  width="20" 
+                  height="20" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  strokeWidth="2"
+                  className="group-hover:translate-x-1 transition-transform"
+                >
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </motion.svg>
+              </span>
+            </motion.button>
+          </Link>
         </motion.div>
       </div>
     </section>
