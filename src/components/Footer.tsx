@@ -8,7 +8,7 @@ const Footer = () => {
     <footer className="py-16 border-t border-border">
       <div className="container-wide">
         {/* NAP Section - Name, Address, Phone */}
-        <div className="grid md:grid-cols-3 gap-8 mb-12 pb-12 border-b border-border">
+        <div className="grid md:grid-cols-3 gap-16 mb-12 pb-12 border-b border-border">
           {/* Name */}
           <div>
             <motion.a
