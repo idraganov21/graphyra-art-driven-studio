@@ -7,7 +7,6 @@ const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
-  const isHomePage = location.pathname === "/";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,6 +16,18 @@ const Navigation = () => {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
 
   const navLinks = [
     { label: "Начало", href: "/", isPage: true },
@@ -36,6 +47,48 @@ const Navigation = () => {
     setIsMobileMenuOpen(false);
   };
 
+  const menuVariants = {
+    closed: {
+      opacity: 0,
+      transition: {
+        duration: 0.3,
+        ease: [0.4, 0, 0.2, 1] as const,
+      }
+    },
+    open: {
+      opacity: 1,
+      transition: {
+        duration: 0.4,
+        ease: [0.4, 0, 0.2, 1] as const,
+      }
+    }
+  };
+
+  const linkVariants = {
+    closed: { opacity: 0, x: -40 },
+    open: (i: number) => ({
+      opacity: 1,
+      x: 0,
+      transition: {
+        delay: 0.1 + i * 0.08,
+        duration: 0.5,
+        ease: [0.16, 1, 0.3, 1] as const
+      }
+    })
+  };
+
+  const decorVariants = {
+    closed: { scaleX: 0 },
+    open: (i: number) => ({
+      scaleX: 1,
+      transition: {
+        delay: 0.2 + i * 0.08,
+        duration: 0.6,
+        ease: [0.16, 1, 0.3, 1] as const
+      }
+    })
+  };
+
   return (
     <>
       <motion.header
@@ -50,7 +103,7 @@ const Navigation = () => {
       >
         <nav className="container-wide flex items-center justify-between h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center">
+          <Link to="/" className="flex items-center relative z-50">
             <img 
               src={logoGraphyra} 
               alt="Graphyra Design Agency" 
@@ -83,23 +136,27 @@ const Navigation = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden w-8 h-8 flex flex-col items-center justify-center gap-1.5"
+            className="md:hidden w-12 h-12 flex flex-col items-center justify-center gap-1.5 relative z-50"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
           >
             <motion.span
-              className="w-6 h-px bg-foreground block"
+              className="w-7 h-[2px] bg-foreground block origin-center"
               animate={{
                 rotate: isMobileMenuOpen ? 45 : 0,
-                y: isMobileMenuOpen ? 3 : 0,
+                y: isMobileMenuOpen ? 4 : 0,
+                width: isMobileMenuOpen ? 28 : 28,
               }}
+              transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
             />
             <motion.span
-              className="w-6 h-px bg-foreground block"
+              className="w-7 h-[2px] bg-foreground block origin-center"
               animate={{
                 rotate: isMobileMenuOpen ? -45 : 0,
-                y: isMobileMenuOpen ? -3 : 0,
+                y: isMobileMenuOpen ? -4 : 0,
+                opacity: 1,
               }}
+              transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
             />
           </button>
         </nav>
@@ -109,38 +166,125 @@ const Navigation = () => {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            className="fixed inset-0 z-40 bg-background md:hidden"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-40 bg-background md:hidden overflow-hidden"
+            variants={menuVariants}
+            initial="closed"
+            animate="open"
+            exit="closed"
           >
-            <nav className="flex flex-col items-center justify-center h-full gap-8">
-              {navLinks.map((link, i) => (
-                <motion.div
-                  key={link.href}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.1 }}
-                >
-                  {link.isPage ? (
-                    <Link
-                      to={link.href}
-                      className="text-display text-3xl"
-                      onClick={() => setIsMobileMenuOpen(false)}
+            {/* Decorative background elements */}
+            <div className="absolute inset-0 overflow-hidden">
+              <motion.div 
+                className="absolute top-20 right-0 w-64 h-64 rounded-full bg-accent/5"
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ delay: 0.2, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              />
+              <motion.div 
+                className="absolute bottom-20 left-0 w-48 h-48 rounded-full bg-accent/3"
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ delay: 0.3, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              />
+            </div>
+
+            <nav className="flex flex-col h-full pt-28 pb-12 px-8">
+              {/* Navigation Links */}
+              <div className="flex-1 flex flex-col justify-center">
+                {navLinks.map((link, i) => (
+                  <div key={link.href} className="overflow-hidden mb-2">
+                    <motion.div
+                      className="flex items-center gap-4"
+                      custom={i}
+                      variants={linkVariants}
+                      initial="closed"
+                      animate="open"
                     >
-                      {link.label}
-                    </Link>
-                  ) : (
-                    <button
-                      onClick={() => scrollToSection(link.href)}
-                      className="text-display text-3xl"
+                      {/* Index number */}
+                      <span className="text-caption text-accent w-8">
+                        0{i + 1}
+                      </span>
+                      
+                      {link.isPage ? (
+                        <Link
+                          to={link.href}
+                          className={`text-display text-4xl sm:text-5xl py-3 transition-colors duration-300 ${
+                            location.pathname === link.href 
+                              ? 'text-accent' 
+                              : 'text-foreground hover:text-accent'
+                          }`}
+                          onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                          {link.label}
+                        </Link>
+                      ) : (
+                        <button
+                          onClick={() => scrollToSection(link.href)}
+                          className="text-display text-4xl sm:text-5xl py-3 text-foreground hover:text-accent transition-colors duration-300"
+                        >
+                          {link.label}
+                        </button>
+                      )}
+                    </motion.div>
+                    
+                    {/* Decorative line */}
+                    <motion.div
+                      className="h-px bg-border origin-left ml-12"
+                      custom={i}
+                      variants={decorVariants}
+                      initial="closed"
+                      animate="open"
+                    />
+                  </div>
+                ))}
+              </div>
+
+              {/* Footer info */}
+              <motion.div 
+                className="pt-8 border-t border-border"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5, duration: 0.5 }}
+              >
+                <div className="flex flex-col gap-4">
+                  <div>
+                    <p className="text-caption text-muted-foreground mb-2">Свържете се с нас</p>
+                    <a 
+                      href="mailto:hello@graphyra.com" 
+                      className="text-lg font-body text-foreground hover:text-accent transition-colors"
                     >
-                      {link.label}
-                    </button>
-                  )}
-                </motion.div>
-              ))}
+                      hello@graphyra.com
+                    </a>
+                  </div>
+                  
+                  <div className="flex gap-6">
+                    <a 
+                      href="https://instagram.com/graphyra" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-caption text-muted-foreground hover:text-accent transition-colors"
+                    >
+                      Instagram
+                    </a>
+                    <a 
+                      href="https://facebook.com/graphyra" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-caption text-muted-foreground hover:text-accent transition-colors"
+                    >
+                      Facebook
+                    </a>
+                    <a 
+                      href="https://linkedin.com/company/graphyra" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-caption text-muted-foreground hover:text-accent transition-colors"
+                    >
+                      LinkedIn
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
             </nav>
           </motion.div>
         )}
