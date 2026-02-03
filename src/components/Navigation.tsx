@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
+import logoGraphyra from "@/assets/logo-graphyra.png";
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -49,11 +50,12 @@ const Navigation = () => {
       >
         <nav className="container-wide flex items-center justify-between h-20">
           {/* Logo */}
-          <Link
-            to="/"
-            className="text-display text-xl font-semibold tracking-tight hover:text-accent transition-colors"
-          >
-            GRAPHYRA
+          <Link to="/" className="flex items-center">
+            <img 
+              src={logoGraphyra} 
+              alt="Graphyra Design Agency" 
+              className="h-10 w-auto transition-transform hover:scale-105"
+            />
           </Link>
 
           {/* Desktop Navigation */}

@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import logoGraphyra from "@/assets/logo-graphyra.png";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -12,14 +13,18 @@ const Footer = () => {
           <div>
             <motion.a
               href="#"
-              className="text-display text-2xl font-semibold inline-block mb-4"
+              className="inline-block mb-4"
               onClick={(e) => {
                 e.preventDefault();
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }}
               whileHover={{ scale: 1.02 }}
             >
-              GRAPHYRA
+              <img 
+                src={logoGraphyra} 
+                alt="Graphyra Design Agency" 
+                className="h-12 w-auto"
+              />
             </motion.a>
             <p className="text-muted-foreground text-sm">
               Дизайн студио за брандинг, уеб дизайн и визуални решения.
