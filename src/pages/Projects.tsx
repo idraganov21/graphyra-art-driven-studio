@@ -224,6 +224,13 @@ const Projects = () => {
             />
             <span className="text-caption text-accent">Портфолио</span>
             <motion.div
+              className="w-12 h-px bg-accent"
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ delay: 0.5, duration: 0.8 }}
+              style={{ transformOrigin: "right" }}
+            />
+            <motion.div
               className="px-3 py-1 border border-accent/30 text-accent text-xs tracking-widest"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
