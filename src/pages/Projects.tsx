@@ -229,7 +229,7 @@ const Projects = () => {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6 }}
             >
-              {projects.length} ПРОЕКТА
+              30+ ПРОЕКТА
             </motion.div>
           </motion.div>
 
