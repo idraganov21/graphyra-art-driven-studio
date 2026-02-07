@@ -46,10 +46,10 @@ const Footer = () => {
             <h4 className="text-caption text-accent mb-3">Контакти</h4>
             <div className="space-y-2">
               <a 
-                href="tel:+359888123456" 
+                href="tel:+359879626889" 
                 className="block text-foreground hover:text-accent transition-colors"
               >
-                +359 888 123 456
+                +359 879 626 889
               </a>
               <a 
                 href="mailto:contact@graphyra.net" 
