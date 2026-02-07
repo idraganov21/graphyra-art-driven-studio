@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 // Import project images
+import projectDobrudzha from "@/assets/project-dobrudzha.png";
 import projectDolce from "@/assets/project-dolce.png";
 import projectDouble44 from "@/assets/project-double44.png";
 import projectMoodboard from "@/assets/project-moodboard.png";
@@ -49,12 +50,23 @@ const ProjectsSection = () => {
 
   const projects: Project[] = [
     {
+      title: "ПФК Добруджа",
+      category: "Социални мрежи",
+      categoryKey: "Социални",
+      description: "Управление на социалните мрежи на футболен клуб",
+      image: projectDobrudzha,
+      position: { top: "0%", left: "8%" },
+      size: "w-[55%] md:w-[42%]",
+      rotation: -2,
+      zIndex: 9,
+    },
+    {
       title: "Dolce Amaro",
       category: "Уеб дизайн",
       categoryKey: "Уеб",
       description: "Модерен уебсайт за италиански ресторант",
       image: projectDolce,
-      position: { top: "3%", left: "2%" },
+      position: { top: "3%", right: "2%" },
       size: "w-[55%] md:w-[42%]",
       rotation: -3,
       zIndex: 3,
@@ -65,7 +77,7 @@ const ProjectsSection = () => {
       categoryKey: "Брандинг",
       description: "Луксозен бар в центъра на Варна",
       image: projectDouble44,
-      position: { top: "0%", right: "3%" },
+      position: { top: "18%", left: "2%" },
       size: "w-[58%] md:w-[45%]",
       rotation: 4,
       zIndex: 4,

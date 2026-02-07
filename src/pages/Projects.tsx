@@ -5,6 +5,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 
 // Import project images
+import projectDobrudzha from "@/assets/project-dobrudzha.png";
 import projectDolce from "@/assets/project-dolce.png";
 import projectDouble44 from "@/assets/project-double44.png";
 import projectMoodboard from "@/assets/project-moodboard.png";
@@ -40,6 +41,14 @@ const Projects = () => {
   const filters = ["Всички", "Брандинг", "Уеб", "Социални", "Motion"];
 
   const projects: Project[] = [
+    {
+      title: "ПФК Добруджа",
+      category: "Социални мрежи",
+      categoryKey: "Социални",
+      description: "Управление на социалните мрежи на футболен клуб. Публикации, сторита и цялостна визуална стратегия за онлайн присъствие.",
+      image: projectDobrudzha,
+      year: "2025",
+    },
     {
       title: "Dolce Amaro",
       category: "Уеб дизайн",
