@@ -65,7 +65,15 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           {/* Copyright */}
           <p className="text-muted-foreground text-sm text-center">
-            © {currentYear} Graphyra. Всички права запазени.
+            © {currentYear} Graphyra. Всички права запазени. Part of{" "}
+            <a
+              href="https://www.innogrowth.net"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-accent hover:text-accent/80 transition-colors link-underline"
+            >
+              InnoGrowth Group
+            </a>
           </p>
 
           {/* Social Links */}

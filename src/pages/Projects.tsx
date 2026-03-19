@@ -14,6 +14,14 @@ import projectAurum from "@/assets/project-aurum.jpg";
 import projectVerde from "@/assets/project-verde.jpg";
 import projectKinetic from "@/assets/project-kinetic.jpg";
 import projectLumina from "@/assets/project-lumina.jpg";
+import projectSion11 from "@/assets/project-sion11.png";
+import projectSaunaSpa from "@/assets/project-saunaspa.png";
+import projectSevenKeys from "@/assets/project-sevenkeys.png";
+import projectKinaKudeva from "@/assets/project-kinakudeva.png";
+import projectDivatex from "@/assets/project-divatex.png";
+import projectLouisAgency from "@/assets/project-louisagency.png";
+import projectDouble44Web from "@/assets/project-double44-web.png";
+import projectDolceWeb from "@/assets/project-dolceamaro-web.png";
 
 interface Project {
   title: string;
@@ -22,6 +30,7 @@ interface Project {
   description: string;
   image: string;
   year: string;
+  url?: string;
 }
 
 const Projects = () => {
@@ -38,7 +47,7 @@ const Projects = () => {
 
   const bgRotate = useTransform(scrollYProgress, [0, 1], [0, 180]);
 
-  const filters = ["Всички", "Брандинг", "Уеб", "Социални", "Motion"];
+  const filters = ["Всички", "Уебсайтове", "Брандинг", "Социални", "Motion"];
 
   const projects: Project[] = [
     {
@@ -51,11 +60,12 @@ const Projects = () => {
     },
     {
       title: "Dolce Amaro",
-      category: "Уеб дизайн",
-      categoryKey: "Уеб",
+      category: "Уебсайт",
+      categoryKey: "Уебсайтове",
       description: "Модерен уебсайт за италиански ресторант с онлайн поръчки и резервации. Елегантен дизайн, който отразява атмосферата на заведението.",
       image: projectDolce,
       year: "2024",
+      url: "https://dolceamaro.bg",
     },
     {
       title: "Double44",
@@ -64,6 +74,79 @@ const Projects = () => {
       description: "Луксозен бар в центъра на Варна. Пълна визуална идентичност включваща лого, менюта и брандиране на интериора.",
       image: projectDouble44,
       year: "2024",
+      url: "https://www.double44.com",
+    },
+    {
+      title: "Double44",
+      category: "Уебсайт",
+      categoryKey: "Уебсайтове",
+      description: "Уебсайт за луксозен бар Double44 с онлайн резервации и представяне на менюто.",
+      image: projectDouble44Web,
+      year: "2024",
+      url: "https://www.double44.com",
+    },
+    {
+      title: "Sion11",
+      category: "Уебсайт",
+      categoryKey: "Уебсайтове",
+      description: "Уебсайт за строителна и ремонтна компания с представяне на услуги и проекти.",
+      image: projectSion11,
+      year: "2024",
+      url: "https://sion11.com",
+    },
+    {
+      title: "SaunaSpa",
+      category: "Уебсайт",
+      categoryKey: "Уебсайтове",
+      description: "Премиум уебсайт за проектиране и изграждане на луксозни сауни по поръчка.",
+      image: projectSaunaSpa,
+      year: "2024",
+      url: "https://sauna-spa.bg",
+    },
+    {
+      title: "Seven Keys Real Estate",
+      category: "Уебсайт",
+      categoryKey: "Уебсайтове",
+      description: "Уебсайт за агенция за недвижими имоти с търсачка и каталог на имоти.",
+      image: projectSevenKeys,
+      year: "2024",
+      url: "https://sevenkeysrealestate.com",
+    },
+    {
+      title: "Kina Kudeva",
+      category: "Уебсайт",
+      categoryKey: "Уебсайтове",
+      description: "Персонален уебсайт с портфолио и представяне на дейности.",
+      image: projectKinaKudeva,
+      year: "2024",
+      url: "https://kinakudeva.com",
+    },
+    {
+      title: "Divatex",
+      category: "Уебсайт",
+      categoryKey: "Уебсайтове",
+      description: "Корпоративен уебсайт за производител на алуминиева и PVC дограма с каталог на продукти.",
+      image: projectDivatex,
+      year: "2024",
+      url: "https://divatex.bg",
+    },
+    {
+      title: "Louis Agency",
+      category: "Уебсайт",
+      categoryKey: "Уебсайтове",
+      description: "Уебсайт за агенция за организиране на събития — сватби, годежи и корпоративни поводи.",
+      image: projectLouisAgency,
+      year: "2024",
+      url: "https://www.louisagencybg.com",
+    },
+    {
+      title: "Dolce Amaro Shop",
+      category: "Уебсайт",
+      categoryKey: "Уебсайтове",
+      description: "Онлайн магазин за градински продукти и аксесоари към ресторант Dolce Amaro.",
+      image: projectDolceWeb,
+      year: "2024",
+      url: "https://garden.dolceamaro.bg",
     },
     {
       title: "Elegant Moodboard",
@@ -119,6 +202,12 @@ const Projects = () => {
     activeFilter === "Всички"
       ? projects
       : projects.filter((p) => p.categoryKey === activeFilter);
+
+  const handleProjectClick = (project: Project) => {
+    if (project.url) {
+      window.open(project.url, "_blank", "noopener,noreferrer");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background" ref={containerRef}>
@@ -338,7 +427,7 @@ const Projects = () => {
           >
             {filteredProjects.map((project, index) => (
               <motion.article
-                key={project.title}
+                key={`${project.title}-${project.categoryKey}`}
                 className="group cursor-pointer"
                 initial={{ opacity: 0, y: 60 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -350,6 +439,7 @@ const Projects = () => {
                 layout
                 onMouseEnter={() => setHoveredProject(index)}
                 onMouseLeave={() => setHoveredProject(null)}
+                onClick={() => handleProjectClick(project)}
               >
                 <motion.div 
                   className="relative bg-background overflow-hidden border border-border"
